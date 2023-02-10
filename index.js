@@ -28,6 +28,7 @@ app.use("/api/account", accountRoutes);
 app.use("/api/product", productRoutes);
 app.use("/api/pharmacy", pharmacyRoutes);
 
+app.use("/", (req, res) => res.send("OK"));
 // last route
 app.use((req, res, next) => {
   const error = new HttpError("Could not find this route.", 404);
