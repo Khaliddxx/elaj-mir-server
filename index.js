@@ -10,7 +10,7 @@ const productRoutes = require("./routes/ProductRoutes");
 const pharmacyRoutes = require("./routes/pharmacyRoutes");
 
 const app = express();
-app.use(cors({ origin: "*" }));
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
