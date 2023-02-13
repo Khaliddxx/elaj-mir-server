@@ -22,7 +22,7 @@ const productSchema = new mongoose.Schema(
       type: Boolean,
     },
     category: {
-      type: [String],
+      type: String,
     },
     pharmacy: {
       type: mongoose.Schema.Types.ObjectId,

@@ -2,9 +2,24 @@ const mongoose = require("mongoose");
 
 const pharmacySchema = new mongoose.Schema(
   {
+    email: {
+      type: String,
+      required: true,
+    },
+    password: {
+      type: String,
+      required: true,
+      // select: false,
+    },
+    type: {
+      type: String,
+    },
     name: {
       type: String,
       required: true,
+    },
+    description: {
+      type: String,
     },
     profilePic: {
       type: String,
@@ -13,10 +28,10 @@ const pharmacySchema = new mongoose.Schema(
       type: String,
     },
     openTime: {
-      type: Date,
+      type: String,
     },
     closeTime: {
-      type: Date,
+      type: String,
     },
     open: {
       type: Boolean,
@@ -28,6 +43,9 @@ const pharmacySchema = new mongoose.Schema(
       type: Number,
     },
     serviceFee: {
+      type: Number,
+    },
+    deliveryTime: {
       type: Number,
     },
     // products: [

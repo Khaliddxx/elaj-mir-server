@@ -9,6 +9,8 @@ const accountRoutes = require("./routes/accountRoutes");
 const productRoutes = require("./routes/ProductRoutes");
 const pharmacyRoutes = require("./routes/pharmacyRoutes");
 
+mongoose.set("strictQuery", false);
+
 const app = express();
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));

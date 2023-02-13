@@ -28,7 +28,7 @@ router.get("/:id", async (req, res, next) => {
   });
 });
 
-// Get product by pharmacy
+// Get products by pharmacy
 router.get("/pharmacy-products/:pharmacy", async (req, res) => {
   let products;
   const pharmacy = req.params.pharmacy;
@@ -47,9 +47,11 @@ router.get("/pharmacy-products/:pharmacy", async (req, res) => {
   });
 });
 
-// Add product
-router.post("/add", async (req, res, next) => {
+// Add product (by pharmacy id)
+router.post("/add/:pharmacyId", async (req, res, next) => {
   console.log(req.body);
+  const pharmacyId = req.params.pharmacyId;
+  console.log(pharmacyId);
   // products array???!!!!!
   let {
     name,
@@ -73,7 +75,7 @@ router.post("/add", async (req, res, next) => {
       needsPrescription: needsPrescription,
       // Category array???!!!
       //   [category]
-      // category:
+      category: category,
       pharmacy: pharmacy,
     });
   } catch (err) {
@@ -104,7 +106,7 @@ router.post("/add", async (req, res, next) => {
       image,
       needsPrescription,
       category,
-      pharmacy,
+      pharmacy: pharmacyId,
     });
     await createdProduct.save();
   } catch (err) {

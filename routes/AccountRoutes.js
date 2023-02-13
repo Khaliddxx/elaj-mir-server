@@ -12,9 +12,12 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const Account = require("../models/Account");
+const Account = require("../models/Pharmacy");
+
+// const Pharmacy = require("../models/Pharmacy");
 
 const HttpError = require("../middleware/http-error");
+// const Pharmacy = require("../models/Pharmacy");
 
 // Get all accounts
 router.get("/getall", async (req, res, next) => {
@@ -22,10 +25,29 @@ router.get("/getall", async (req, res, next) => {
   res.send(accounts);
 });
 
+// Get Account by id
+router.get("/:id", async (req, res) => {
+  let pharmacy;
+  const id = req.params.id;
+  try {
+    pharmacy = await Account.findOne({ _id: id });
+  } catch (err) {
+    const error = new HttpError(
+      "Fetching pharmacies failed, please try again later.",
+      500
+    );
+    console.log(err);
+    // return next(error);
+  }
+  res.json({
+    pharmacy: pharmacy,
+  });
+});
+
 // Register Account
 router.post("/register", async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { email, password, name } = req.body;
 
     // check if the email is already in use
     const existingAccount = await Account.findOne({ email });
@@ -40,6 +62,7 @@ router.post("/register", async (req, res) => {
     const account = new Account({
       email,
       password: hashedPassword,
+      name: name,
     });
     await account.save();
 
@@ -71,13 +94,69 @@ router.post("/login", async (req, res) => {
 
     // create and sign a JWT
     const token = jwt.sign({ accountId: account._id }, "secretkey");
+    const id = account._id;
 
     // send the token as a response
-    res.send({ token });
+    res.send({ token, id });
   } catch (err) {
     console.log(err);
     res.status(500).send("Error logging in please try again.");
   }
+});
+
+// Edit Pharmacy
+router.post("/edit", async (req, res, next) => {
+  console.log(req.body);
+  const idd = req.body._id;
+  let {
+    name,
+    profilePic,
+    description,
+    headerPic,
+    openTime,
+    closeTime,
+    open,
+    location,
+    deliveryFee,
+    serviceFee,
+    deliveryTime,
+  } = req.body;
+
+  try {
+    // createdPharmacy = new Pharmacy({
+    //   name,
+    //   profilePic,
+    //   headerPic,
+    //   openTime,
+    //   closedTime,
+    //   open,
+    //   location,
+    //   deliveryFee,
+    //   serviceFee,
+    // });
+    await Account.findByIdAndUpdate(idd, {
+      name: name,
+      profilePic: profilePic,
+      headerPic: headerPic,
+      description: description,
+      openTime: openTime,
+      closeTime: closeTime,
+      open: open,
+      location: location,
+      deliveryFee: deliveryFee,
+      serviceFee: serviceFee,
+      deliveryTime: deliveryTime,
+    });
+  } catch (err) {
+    console.log(err);
+    const error = new HttpError(
+      "Editing pharmacy failed, please try again.",
+      500
+    );
+    return next(error);
+  }
+
+  res.status(201).send("updated");
 });
 
 module.exports = router;

@@ -42,6 +42,7 @@ router.post("/add", async (req, res, next) => {
     location,
     deliveryFee,
     serviceFee,
+    DeliveryTime,
   } = req.body;
 
   let existingPharmacy;
@@ -56,6 +57,7 @@ router.post("/add", async (req, res, next) => {
       location: location,
       deliveryFee: deliveryFee,
       serviceFee: serviceFee,
+      DeliveryTime: DeliveryTime,
     });
   } catch (err) {
     console.log(err);
