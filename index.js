@@ -5,9 +5,9 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const HttpError = require("./middleware/http-error");
 
-const accountRoutes = require("./routes/accountRoutes");
+const accountRoutes = require("./routes/AccountRoutes");
 const productRoutes = require("./routes/ProductRoutes");
-const pharmacyRoutes = require("./routes/pharmacyRoutes");
+const pharmacyRoutes = require("./routes/PharmacyRoutes");
 
 mongoose.set("strictQuery", false);
 
