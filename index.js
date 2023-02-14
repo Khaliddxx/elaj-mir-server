@@ -38,8 +38,10 @@ app.use((req, res, next) => {
   throw error;
 });
 
+const uri = process.env.DATABASE_URI;
+
 mongoose
-  .connect(process.env.DATABASE_URI, {
+  .connect(uri, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
