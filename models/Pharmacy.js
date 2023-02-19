@@ -36,7 +36,7 @@ const pharmacySchema = new mongoose.Schema(
     open: {
       type: Boolean,
     },
-    location: {
+    city: {
       type: String,
     },
     deliveryFee: {
