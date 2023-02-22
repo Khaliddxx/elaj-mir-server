@@ -8,6 +8,7 @@ const HttpError = require("./middleware/http-error");
 const accountRoutes = require("./routes/AccountRoutes");
 const productRoutes = require("./routes/ProductRoutes");
 const pharmacyRoutes = require("./routes/PharmacyRoutes");
+const orderRoutes = require("./routes/OrderRoutes");
 
 mongoose.set("strictQuery", false);
 
@@ -29,6 +30,7 @@ app.use((req, res, next) => {
 app.use("/api/account", accountRoutes);
 app.use("/api/product", productRoutes);
 app.use("/api/pharmacy", pharmacyRoutes);
+app.use("/api/orders", orderRoutes);
 
 app.use("/", (req, res) => res.send("OK"));
 // last route
