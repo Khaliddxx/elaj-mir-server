@@ -14,7 +14,7 @@ router.get("/", async (req, res) => {
 });
 
 // Create a new order
-router.post("/", async (req, res) => {
+router.post("/create", async (req, res) => {
   try {
     const order = new Order(req.body);
     await order.save();
