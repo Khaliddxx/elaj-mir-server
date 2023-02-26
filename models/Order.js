@@ -39,6 +39,13 @@ const orderSchema = new mongoose.Schema(
     status: {
       type: String,
     },
+    selectedLocation: {
+      type: {
+        lat: Number,
+        lng: Number,
+      },
+      required: true,
+    },
     // products: [
     //   {
     //     type: mongoose.Schema.Types.ObjectId,
