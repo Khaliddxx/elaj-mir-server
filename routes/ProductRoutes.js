@@ -62,6 +62,7 @@ router.post("/add/:pharmacyId", async (req, res, next) => {
     needsPrescription,
     category,
     pharmacy,
+    expiryDate,
   } = req.body;
 
   let existingProduct;
@@ -77,6 +78,7 @@ router.post("/add/:pharmacyId", async (req, res, next) => {
       //   [category]
       category: category,
       pharmacy: pharmacy,
+      expiryDate: expiryDate,
     });
   } catch (err) {
     console.log(err);
@@ -107,6 +109,7 @@ router.post("/add/:pharmacyId", async (req, res, next) => {
       needsPrescription,
       category,
       pharmacy: pharmacyId,
+      expiryDate: expiryDate,
     });
     await createdProduct.save();
   } catch (err) {
