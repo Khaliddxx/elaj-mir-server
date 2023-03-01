@@ -44,4 +44,49 @@ router.get("/pharmacy-orders/:pharmacy", async (req, res) => {
   });
 });
 
+// Remove order by id
+router.post("/remove/:id", async (req, res, next) => {
+  let order;
+  const id = req.params.id;
+  try {
+    order = await Order.findOneAndRemove({ _id: id });
+  } catch (err) {
+    const error = new HttpError(
+      "Removing product failed, please try again later.",
+      500
+    );
+    console.log(err);
+    return next(error);
+  }
+  res.json({
+    order: order,
+  });
+});
+
+// Update order status by id
+router.post("/update-status/:id/:status", async (req, res, next) => {
+  const id = req.params.id;
+  const status = req.params.status;
+  let order;
+
+  try {
+    order = await Order.findOneAndUpdate(
+      { _id: id },
+      { status: status },
+      { new: true }
+    );
+  } catch (err) {
+    const error = new HttpError(
+      "Updating order status failed, please try again later.",
+      500
+    );
+    console.log(err);
+    return next(error);
+  }
+
+  res.json({
+    order: order,
+  });
+});
+
 module.exports = router;
