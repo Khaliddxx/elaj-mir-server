@@ -143,4 +143,34 @@ router.post("/remove/:id", async (req, res, next) => {
   });
 });
 
+// Edit product by id
+router.put("/edit/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    console.log(id);
+    const { price, category, stock } = req.body;
+
+    // Find the product by ID
+    const product = await Product.findById(id);
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+
+    // Update the fields
+    product.price = price;
+    product.category = category;
+    product.stock = stock;
+
+    // Save the updated product
+    await product.save();
+
+    // Return the updated product
+    console.log(product);
+    res.json(product);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
 module.exports = router;
