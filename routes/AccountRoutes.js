@@ -47,7 +47,7 @@ router.get("/:id", async (req, res) => {
 // Register Account
 router.post("/register", async (req, res) => {
   try {
-    const { email, password, name } = req.body;
+    const { email, password, name, type } = req.body;
 
     // check if the email is already in use
     const existingAccount = await Account.findOne({ email });
@@ -63,6 +63,7 @@ router.post("/register", async (req, res) => {
       email,
       password: hashedPassword,
       name: name,
+      type: type,
     });
     await account.save();
 
@@ -80,7 +81,7 @@ router.post("/register", async (req, res) => {
 // Login
 router.post("/login", async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { email, password, type } = req.body;
 
     // check if the email and password are correct
     const account = await Account.findOne({ email });
@@ -95,9 +96,10 @@ router.post("/login", async (req, res) => {
     // create and sign a JWT
     const token = jwt.sign({ accountId: account._id }, "secretkey");
     const id = account._id;
+    const t = account.type;
 
     // send the token as a response
-    res.send({ token, id });
+    res.send({ token, id, t });
   } catch (err) {
     console.log(err);
     res.status(500).send("Error logging in please try again.");
