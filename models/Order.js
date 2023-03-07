@@ -16,7 +16,6 @@ const orderSchema = new mongoose.Schema(
     },
     total: {
       type: Number,
-      required: true,
     },
     pharmacy: {
       type: mongoose.Schema.Types.ObjectId,
@@ -45,6 +44,10 @@ const orderSchema = new mongoose.Schema(
         lng: Number,
       },
       required: true,
+    },
+    prescription: {
+      type: String,
+      required: false,
     },
     // products: [
     //   {
