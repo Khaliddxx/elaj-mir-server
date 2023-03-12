@@ -14,7 +14,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-/// Create a new order
+// Create a new order
 router.post("/create", async (req, res) => {
   try {
     const order = new Order(req.body);
@@ -24,7 +24,7 @@ router.post("/create", async (req, res) => {
     // send WhatsApp message
     const client = twilio(
       "ACe0883d72de212647a808c758ceb5035e",
-      "9bec5ce17af2a333fd325225affb170a"
+      "6616563e28067897e2a3d8a342590555"
     );
     try {
       const message = await client.messages.create({
