@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const twilio = require("twilio");
 const Order = require("../models/Order");
 
 // GET all orders
@@ -19,6 +20,22 @@ router.post("/create", async (req, res) => {
     const order = new Order(req.body);
     await order.save();
     res.status(201).json({ message: "Order created successfully" });
+
+    // send WhatsApp message
+    const client = twilio(
+      "ACe0883d72de212647a808c758ceb5035e",
+      "9bec5ce17af2a333fd325225affb170a"
+    );
+    try {
+      const message = await client.messages.create({
+        body: `New order from ${order.name} (${order.phone}): ${order.total} SDG`,
+        from: `whatsapp:+14155238886`,
+        to: `whatsapp:+249100581763`,
+      });
+      console.log(`Message sent: ${message.sid}`);
+    } catch (error) {
+      console.error(`Error sending message: ${error}`);
+    }
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Server error" });
