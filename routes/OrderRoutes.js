@@ -30,7 +30,7 @@ router.post("/create", async (req, res) => {
       const message = await client.messages.create({
         body: `New order from ${order.name} (${order.phone}): ${order.total} SDG`,
         from: `whatsapp:+14155238886`,
-        to: `whatsapp:+249100581763`,
+        to: `whatsapp:+201273671302`,
       });
       console.log(`Message sent: ${message.sid}`);
     } catch (error) {
