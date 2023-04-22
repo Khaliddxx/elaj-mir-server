@@ -22,6 +22,7 @@ const HttpError = require("../middleware/http-error");
 // Get all accounts
 router.get("/getall", async (req, res, next) => {
   const accounts = await Account.find({});
+  console.log(`${new Date()} - ${req.method} ${req.url}`);
   res.send(accounts);
 });
 
